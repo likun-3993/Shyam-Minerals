@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { HERO_SLIDES, BRAND } from "../constants/data";
+import { HERO_SLIDES, BRAND } from "../constants/data.jsx";
 
 export default function Hero() {
   const [current, setCurrent] = useState(0);
@@ -8,43 +8,38 @@ export default function Hero() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 4500);
+    }, 5000);
     return () => clearInterval(timer);
   }, []);
 
   const slide = HERO_SLIDES[current];
 
   return (
-    <section
-      id="home"
-      className="hero"
-      style={{ backgroundImage: `url(${slide.image})` }}
-    >
-      <div className="hero-overlay">
-        <div className="hero-content">
+    <section id="home" className="hero">
+      {/* Left: Text Content */}
+      <div className="hero-left">
+        <div className="hero-eyebrow">
+          <span className="hero-eyebrow-line" />
+          Est. {BRAND.established} · Odisha, India
+        </div>
 
-          {/* Company badge */}
-          <div className="hero-badge">
-            {BRAND.icon} Est. {BRAND.established}
-          </div>
+        <h1 className="hero-headline">
+          {BRAND.name.split(" ").slice(0, 2).join(" ")}<br />
+          <span>{BRAND.name.split(" ").slice(2).join(" ")}</span>
+        </h1>
 
-          {/* Company name as headline */}
-          <h1 className="hero-company">{BRAND.name}</h1>
-          <span className="hero-short-name">({BRAND.shortName})</span>
+        <span className="hero-short">{BRAND.tagline}</span>
 
-          {/* Fixed sub-headline */}
-          <p className="hero-tagline">
-            From mines to ports and plants — trusted mineral transport &amp;
-            aggregate supply since {BRAND.established}
-          </p>
+        <p className="hero-tagline">
+          From mines to markets — trusted mineral transport &amp; aggregate
+          supply across Odisha since {BRAND.established}.
+        </p>
 
-          {/* Slide-specific context line */}
-          <p className="hero-slide-sub">{slide.sub}</p>
+        <p className="hero-slide-sub">{slide.sub}</p>
 
-          <div className="hero-actions">
-            <a href="#portfolio" className="primary-btn">Our Services</a>
-            <a href="#contact" className="secondary-btn">Get In Touch</a>
-          </div>
+        <div className="hero-actions">
+          <a href="#portfolio" className="primary-btn">Our Services</a>
+          <a href="#contact" className="secondary-btn">Get In Touch</a>
         </div>
 
         {/* Carousel dots */}
@@ -58,6 +53,30 @@ export default function Hero() {
             />
           ))}
         </div>
+
+        {/* Stats strip */}
+        <div className="hero-stats">
+          <div>
+            <div className="hero-stat-value">17+</div>
+            <div className="hero-stat-label">Years Operating</div>
+          </div>
+          <div>
+            <div className="hero-stat-value">5</div>
+            <div className="hero-stat-label">Aggregate Sizes</div>
+          </div>
+          <div>
+            <div className="hero-stat-value">Pan-Odisha</div>
+            <div className="hero-stat-label">Logistics Reach</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Right: Background Image Panel */}
+      <div className="hero-right">
+        <div
+          className="hero-bg-img"
+          style={{ backgroundImage: `url(${slide.image})` }}
+        />
       </div>
     </section>
   );

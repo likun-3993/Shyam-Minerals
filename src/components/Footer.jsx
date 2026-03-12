@@ -1,4 +1,5 @@
-import { BRAND, FOOTER } from "../constants/data";
+import { BRAND, FOOTER } from "../constants/data.jsx";
+import Logo from "./Logo.jsx";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -6,13 +7,13 @@ export default function Footer() {
   return (
     <footer className="footer">
 
-      {/* ── Top Grid ── */}
+      {/* Top Grid */}
       <div className="footer-grid">
 
         {/* Col 1 — Brand */}
         <div className="footer-brand-col">
           <a href="#home" className="footer-logo-link">
-            <img src={BRAND.logo} alt={BRAND.name} className="footer-logo" />
+            <Logo />
           </a>
           <p className="footer-tagline">{BRAND.tagline}</p>
           <p className="footer-address">📍 {BRAND.address}</p>
@@ -27,7 +28,6 @@ export default function Footer() {
               ✉️ {BRAND.email}
             </a>
           </div>
-          {/* Social */}
           <div className="footer-socials">
             {FOOTER.socialLinks.map((s) => (
               <a
@@ -68,7 +68,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Col 4 — Legal / Registration */}
+        {/* Col 4 — Legal */}
         <div className="footer-col">
           <h4 className="footer-col-heading">Company Info</h4>
           <ul className="footer-legal-list">
@@ -77,8 +77,8 @@ export default function Footer() {
               <span className="legal-value">{BRAND.established}</span>
             </li>
             <li>
-              <span className="legal-label">CIN</span>
-              <span className="legal-value">{FOOTER.cin}</span>
+              <span className="legal-label">Proprietor</span>
+              <span className="legal-value">{FOOTER.proprietor}</span>
             </li>
             <li>
               <span className="legal-label">GST No.</span>
@@ -93,10 +93,10 @@ export default function Footer() {
 
       </div>
 
-      {/* ── Divider ── */}
+      {/* Divider */}
       <div className="footer-divider" />
 
-      {/* ── Bottom Bar ── */}
+      {/* Bottom Bar */}
       <div className="footer-bottom">
         <p className="footer-copyright">
           © {currentYear} {FOOTER.copyright}. All Rights Reserved.

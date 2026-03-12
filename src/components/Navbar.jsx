@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { NAV_LINKS, BRAND } from "../constants/data";
+import { NAV_LINKS } from "../constants/data.jsx";
+import Logo from "./Logo.jsx";
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
@@ -22,7 +23,12 @@ export default function Navbar() {
                     }
                 });
             },
-            { threshold: 0.4 }
+            {
+                // Fires when the top of a section crosses 40% down from the top of
+                // the viewport — works regardless of how tall the section is.
+                rootMargin: "-40% 0px -55% 0px",
+                threshold: 0,
+            }
         );
 
         sectionIds.forEach((id) => {
@@ -38,11 +44,7 @@ export default function Navbar() {
 
             {/* Logo */}
             <a href="#home" className="navbar-logo-link">
-                <img
-                    src={BRAND.logo}
-                    alt={BRAND.name}
-                    className="navbar-logo"
-                />
+                <Logo />
             </a>
 
             {/* Hamburger toggle */}

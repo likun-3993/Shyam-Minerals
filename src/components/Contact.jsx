@@ -1,69 +1,94 @@
-import { BRAND } from "../constants/data";
+import { useEffect, useRef } from "react";
+import { BRAND } from "../constants/data.jsx";
 
 export default function Contact() {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      },
+      { threshold: 0.1 }
+    );
+    const el = sectionRef.current;
+    if (!el) return;
+    el.querySelectorAll(".reveal, .reveal-left, .reveal-right, .reveal-unfold").forEach((node) =>
+      observer.observe(node)
+    );
+    return () => observer.disconnect();
+  }, []);
+
+  const contactItems = [
+    {
+      icon: "📞",
+      label: "Call Us",
+      value: BRAND.phone,
+      href: `tel:${BRAND.phoneTel}`,
+    },
+    {
+      icon: "✉️",
+      label: "Email Us",
+      value: BRAND.email,
+      href: `mailto:${BRAND.email}?subject=Enquiry - Shyam Minerals & Logistics`,
+    },
+    {
+      icon: "📍",
+      label: "Our Location",
+      value: BRAND.address,
+      href: null,
+    },
+    {
+      icon: "🕐",
+      label: "Working Hours",
+      value: BRAND.hours,
+      href: null,
+    },
+  ];
+
   return (
-    <section id="contact" className="contact-section">
+    <section id="contact" className="contact-section" ref={sectionRef}>
       <div className="contact-inner">
 
-        {/* ── Left: Contact Details ── */}
-        <div className="contact-details">
-          <span className="section-tag light">Reach Out</span>
-          <h2>Contact Us</h2>
-          <p className="contact-sub">
+        {/* Left: Info */}
+        <div className="contact-info reveal-left">
+          <div className="section-eyebrow">
+            <span className="section-eyebrow-line" /> Reach Out
+          </div>
+          <h2 className="section-h2">Contact Us</h2>
+          <p>
             Get in touch directly or send us a quote request — we respond
             promptly on all working days.
           </p>
 
-          <div className="contact-items">
-
-            {/* Phone — opens dialer on mobile, Skype/FaceTime prompt on desktop */}
-            <a href={`tel:${BRAND.phoneTel}`} className="contact-item contact-item-link">
-              <div className="contact-item-icon">📞</div>
-              <div>
-                <span className="contact-item-label">Call Us</span>
-                <span className="contact-item-value">{BRAND.phone}</span>
-              </div>
-            </a>
-
-            {/* Email — opens default mail app on both mobile & desktop */}
-            <a
-              href={`mailto:${BRAND.email}?subject=Enquiry - Shyam Minerals & Logistics`}
-              className="contact-item contact-item-link"
-            >
-              <div className="contact-item-icon">✉️</div>
-              <div>
-                <span className="contact-item-label">Email Us</span>
-                <span className="contact-item-value">{BRAND.email}</span>
-              </div>
-            </a>
-
-            {/* Address */}
-            <div className="contact-item">
-              <div className="contact-item-icon">📍</div>
-              <div>
-                <span className="contact-item-label">Our Location</span>
-                <span className="contact-item-value">{BRAND.address}</span>
-              </div>
-            </div>
-
-            {/* Hours */}
-            <div className="contact-item">
-              <div className="contact-item-icon">🕐</div>
-              <div>
-                <span className="contact-item-label">Working Hours</span>
-                <span className="contact-item-value">{BRAND.hours}</span>
-              </div>
-            </div>
-
+          <div className="contact-items" style={{ marginTop: "2rem" }}>
+            {contactItems.map((item, i) => {
+              const Tag = item.href ? "a" : "div";
+              return (
+                <Tag
+                  key={item.label}
+                  href={item.href || undefined}
+                  className={`contact-item ${item.href ? "contact-item-link" : ""} reveal-unfold reveal-delay-${i + 1}`}
+                >
+                  <div className="contact-item-icon">{item.icon}</div>
+                  <div>
+                    <span className="contact-item-label">{item.label}</span>
+                    <span className="contact-item-value">{item.value}</span>
+                  </div>
+                </Tag>
+              );
+            })}
           </div>
         </div>
 
-        {/* ── Right: Get a Quote form ── */}
-        <div className="contact-form-wrap">
+        {/* Right: Form */}
+        <div className="contact-form-wrap reveal-right">
           <h3>📩 Get a Quote</h3>
           <p className="form-sub">
-            Tell us about your requirement and we'll get back to you within
-            one business day.
+            Tell us about your requirement and we'll get back to you within one
+            business day.
           </p>
 
           <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
@@ -93,7 +118,7 @@ export default function Contact() {
               <label htmlFor="service">Service Required</label>
               <select id="service">
                 <option value="">Select a service</option>
-                <option value="mineral-trading">Mineral Trading & Logistics</option>
+                <option value="mineral-trading">Mineral Trading &amp; Logistics</option>
                 <option value="aggregates">Black Stone Aggregates</option>
                 <option value="both">Both Services</option>
                 <option value="other">Other / General Enquiry</option>

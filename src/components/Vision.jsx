@@ -1,60 +1,71 @@
-import { VISION_MISSION } from "../constants/data";
+import { useEffect, useRef } from "react";
+import { VISION_MISSION } from "../constants/data.jsx";
 
 export default function Vision() {
   const { vision, mission } = VISION_MISSION;
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      },
+      { threshold: 0.1 }
+    );
+    const el = sectionRef.current;
+    if (!el) return;
+    el.querySelectorAll(".reveal, .reveal-up, .reveal-left, .reveal-right").forEach((node) =>
+      observer.observe(node)
+    );
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="vision" className="vision-section">
-      <div className="vision-inner">
+    <section id="vision" className="vis-section" ref={sectionRef}>
 
-        {/* ── Section Label ── */}
-        <div className="vision-header">
-          <span className="section-tag light">Purpose & Direction</span>
-          <h2>Vision & Mission</h2>
-          <p className="vision-intro">
-            What drives us every day — from mine to market to the future.
+      {/* ── Section Header Banner ── */}
+      <div className="vis-banner">
+        <div className="vis-banner-inner">
+          <span className="vis-banner-tag">Purpose &amp; Direction</span>
+          <h2 className="vis-banner-title">Vision &amp; Mission</h2>
+          <p className="vis-banner-sub">
+            What drives us every day — from mine to market and into the future.
           </p>
         </div>
+      </div>
 
-        {/* ── Cards ── */}
-        <div className="vm-grid">
+      {/* ── Cards Grid ── */}
+      <div className="vis-body">
+        <div className="vis-grid">
 
           {/* Vision Card */}
-          <div className="vm-card vm-card-vision">
-            <div className="vm-card-top">
-              <span className="vm-icon">{vision.icon}</span>
-              <span className="vm-tag">{vision.tag}</span>
-            </div>
-            <h3>{vision.headline}</h3>
-            <p>{vision.body}</p>
+          <div className="vis-card vis-card-vision reveal-left">
+            <h3 className="vis-card-title">{vision.headline}</h3>
+            <p className="vis-card-body">{vision.body}</p>
           </div>
 
           {/* Mission Card */}
-          <div className="vm-card vm-card-mission">
-            <div className="vm-card-top">
-              <span className="vm-icon">{mission.icon}</span>
-              <span className="vm-tag">{mission.tag}</span>
-            </div>
-            <h3>{mission.headline}</h3>
-            <p className="mission-body">{mission.body}</p>
-            <ul className="mission-commitments">
-              {mission.commitments.map((item) => (
-                <li key={item}>
-                  <span className="commit-dot" />
-                  {item}
-                </li>
-              ))}
-            </ul>
+          <div className="vis-card vis-card-mission reveal-right">
+            <h3 className="vis-card-title">{mission.headline}</h3>
+            <p className="vis-card-body">{mission.body}</p>
           </div>
-
         </div>
 
-        {/* ── Bottom accent strip ── */}
-        <div className="vm-accent-strip">
-          <span>Ethical · Compliant · Reliable · Future-Ready</span>
+        {/* ── Accent Strip ── */}
+        <div className="vis-strip reveal-up">
+          <div className="vis-strip-inner">
+            {["Ethical", "Compliant", "Reliable", "Future‑Ready"].map((word, i) => (
+              <span key={word} className="vis-strip-word">
+                {i > 0 && <span className="vis-strip-sep">·</span>}
+                {word}
+              </span>
+            ))}
+          </div>
         </div>
-
       </div>
+
     </section>
   );
 }
