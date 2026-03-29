@@ -26,17 +26,17 @@ export const BRAND = {
 // ── HERO SLIDES ──
 export const HERO_SLIDES = [
     {
-        image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400",
+        image: "/SML_BR_1.png",
         headline: "Mineral Trading & Logistics Across Odisha",
         sub: "Licensed transport of iron ore and chromite from mines to ports and plants.",
     },
     {
-        image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1400",
+        image: "/SML_BR_2.jpeg",
         headline: "Black Stone Aggregates for Every Project",
         sub: "Sizes 10mm to 60mm — consistent quality, bulk supply, on-time delivery.",
     },
     {
-        image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1400",
+        image: "/SML_BR_3.jpeg",
         headline: "Built on Compliance. Driven by Reliability.",
         sub: "Pan-Odisha operations backed by licensed partners and proven logistics.",
     },

@@ -41,7 +41,7 @@ export default function Portfolio() {
           <h2 className="port-banner-title">Our Core Services</h2>
           <p className="port-banner-sub">
             Two focused verticals powering mineral supply chains and construction
-            infrastructure across Odisha since 2007.
+            infrastructure across Odisha.
           </p>
         </div>
       </div>
@@ -72,13 +72,6 @@ export default function Portfolio() {
               </div>
 
               <div className="port-service-card-footer">
-                <div className="port-service-timing">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                  <div>
-                    <span className="timing-label">Since</span>
-                    <strong className="timing-value">2007</strong>
-                  </div>
-                </div>
                 <div className="port-service-stat">
                   {idx === 0 ? "Pan-Odisha" : "5 Sizes"}
                 </div>
